@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Specialization(models.Model):
-    name = models.CharField(blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
     logo = models.ImageField(blank=True, null=True)
     slug = models.SlugField(max_length = 50)
     
@@ -16,8 +16,8 @@ class Specialization(models.Model):
     
     
 class Company(models.Model):
-    name = models.CharField(blank=True, null=True)
-    city = models.CharField(blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
     logo = models.ImageField(blank=True, null=True)
     info = models.TextField(max_length=1023)
     staff = models.TextField(max_length=1023)
@@ -30,13 +30,13 @@ class Company(models.Model):
         return self.name
 
 class Vacancy(models.Model):
-    name = models.CharField(blank=True, null=True)
-    specialization = models.ManyToManyField(Specialization, null=True, blank=True, related_name="vacancies") # related name добавить, пока не знаю что это
-    company = models.ForeignKey(Company, ull=True, blank=True, related_name="vacancies")
+    name = models.CharField(max_length=50, blank=True, null=True)
+    specialization = models.ManyToManyField(Specialization, null=True, blank=True, related_name="vacancies") 
+    company = models.ForeignKey(Company, null=True, blank=True, related_name="vacancies")
     skills = models.TextField(max_length=1023)
     discription = models.TextField(max_length=1023)
-    money_down = models.CharField(blank=True, null=True)
-    money_up = models.CharField(blank=True, null=True)
+    money_down = models.CharField(max_length=50, blank=True, null=True)
+    money_up = models.CharField(max_length=50, blank=True, null=True)
     data_creation = models.DateTimeField(auto_now=True)
     data_update = models.DateTimeField(auto_now=True)
     
@@ -48,6 +48,4 @@ class Vacancy(models.Model):
     def __str__(self):
         return self.name
         
-
-# картинки дополнить путями(урлами), ибо из папок на компе не пашет
     
