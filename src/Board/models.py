@@ -4,7 +4,7 @@ from django.db import models
 
 class Specialization(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
-    logo = models.ImageField(blank=True, null=True)
+    logo = models.ImageField(blank=True, null=True, upload_to=None)
     slug = models.SlugField(max_length = 50)
     
     class Meta:
@@ -18,7 +18,7 @@ class Specialization(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
-    logo = models.ImageField(blank=True, null=True)
+    logo = models.ImageField(blank=True, null=True, upload_to=None)
     info = models.TextField(max_length=1023)
     staff = models.TextField(max_length=1023)
     
@@ -32,7 +32,7 @@ class Company(models.Model):
 class Vacancy(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     specialization = models.ManyToManyField(Specialization, null=True, blank=True, related_name="vacancies") 
-    company = models.ForeignKey(Company, null=True, blank=True, related_name="vacancies")
+    company = models.ForeignKey(Company, null=True, blank=True, related_name="vacancies",on_delete=models.CASCADE)
     skills = models.TextField(max_length=1023)
     discription = models.TextField(max_length=1023)
     money_down = models.CharField(max_length=50, blank=True, null=True)

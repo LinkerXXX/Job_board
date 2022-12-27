@@ -14,7 +14,7 @@ from pathlib import Path
 import environ
 
 env = environ.Env()
-environ.Env.read_env('D:\Python_Work\board\job_board\conf\default.env')
+environ.Env.read_env('D:\Python_Work\Board\Job_board\conf\default.env')
 
 SECRET_KEY = env('SECRET_KEY')
 
