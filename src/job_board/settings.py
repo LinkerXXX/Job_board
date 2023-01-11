@@ -14,8 +14,7 @@ from pathlib import Path
 import environ
 
 env = environ.Env()
-environ.Env.read_env('C:/Users/Pozdnuhov/Desktop/Python_work/Board/Job_board/conf/default.env') # - заводской
-#environ.Env.read_env('D:\Python_Work\Board\Job_board\conf\default.env') - домашний
+environ.Env.read_env('../conf/default.env')
 SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env('DEBUG')
@@ -98,21 +97,21 @@ USE_I18N = True
 USE_TZ = True
 
 
-SHORT_DATE_FORMAT="j.m.Y"
-TIME_FORMAT="H:i:s"
-DATE_INPUT_FORMATS=["%d.%m.%Y"]
-TIME_INPUT_FORMATS=['%H:%M:%S']
-FIRST_DAY_OF_WEEK=1
-DATE_FORMAT="j E Y"
+SHORT_DATE_FORMAT = "j.m.Y"
+TIME_FORMAT = "H:i:s"
+DATE_INPUT_FORMATS = ["%d.%m.%Y"]
+TIME_INPUT_FORMATS = ['%H:%M:%S']
+FIRST_DAY_OF_WEEK = 1
+DATE_FORMAT = "j E Y"
 
-STATIC_URL='static/'
+STATIC_URL = 'static/'
 
-DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-MEDIA_URL= '/media/'
-MEDIA_ROOT= 'media'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'C:/Users/Pozdnuhov/Desktop/Python_work/images'
 
-MEDIA_COMPANY_IMAGE_DIR = 'company_images'
-MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
+MEDIA_COMPANY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/images/company'
+MEDIA_SPECIALITY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/images/specialization'
