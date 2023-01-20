@@ -1,3 +1,3 @@
 # job_board
 
-![Screnshot](https://github.com/LinkerXXX/Job_board/blob/screenshots/Blank_diagram.png)
+![](C:/Users/Pozdnuhov/Desktop/Python_work/screenshots/Blank_diagram.png)
