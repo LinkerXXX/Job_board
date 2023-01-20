@@ -1,4 +1,4 @@
 # job_board
 
 
-<img src="file:///C:/Users/Pozdnuhov/Desktop/Python_work/screenshots/Blank_diagram"/>
+![Screnshot](https://github.com/LinkerXXX/Job_board/blob/admin_branch/docs/picture/db/Blank_diagram.png)
