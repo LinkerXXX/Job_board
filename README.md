@@ -1,6 +1,4 @@
 # job_board
 
 
-![alt text1][logo]
-
-[logo]: screenshots/Blank_diagram.png
+<img src="file:///C:/Users/Pozdnuhov/Desktop/Python_work/screenshots/Blank_diagram/>
