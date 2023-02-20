@@ -4,7 +4,7 @@ from django.db import models
 
 class Specialization(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, verbose_name="Название специализации")
-    logo = models.ImageField(blank=True, null=True, upload_to="images/specialization/", verbose_name="Логотип специализации")
+    logo = models.ImageField(blank=True, null=True, upload_to="media/specialization/", verbose_name="Логотип специализации")
     slug = models.SlugField(max_length = 50, verbose_name="Слаг специализации")
     
     class Meta:
@@ -18,7 +18,7 @@ class Specialization(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, verbose_name="Название компании")
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name="Город") 
-    logo = models.ImageField(blank=True, null=True, upload_to="images/company/", verbose_name="Логотип компании")
+    logo = models.ImageField(blank=True, null=True, upload_to="media/company/", verbose_name="Логотип компании")
     description = models.TextField(max_length=1023, verbose_name="Описание компании")
     employee_count = models.IntegerField(verbose_name="Численность сотрудников")
     

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
+
 
 env = environ.Env()
 environ.Env.read_env('../conf/default.env')
@@ -48,7 +50,7 @@ ROOT_URLCONF = 'job_board.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,7 +113,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'C:/Users/Pozdnuhov/Desktop/Python_work/images'
+#MEDIA_ROOT = 'C:/Users/Pozdnuhov/Desktop/Python_work/images'
 
-MEDIA_COMPANY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/images/company'
-MEDIA_SPECIALITY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/images/specialization'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+
+MEDIA_COMPANY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/Board/Job_board/src/media/company'
+MEDIA_SPECIALITY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/media/specialization'
