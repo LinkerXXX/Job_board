@@ -119,5 +119,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 
-MEDIA_COMPANY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/Board/Job_board/src/media/company'
-MEDIA_SPECIALITY_IMAGE_DIR = 'C:/Users/Pozdnuhov/Desktop/Python_work/media/specialization'
+MEDIA_COMPANY_IMAGE_DIR = 'media/company/' 
+MEDIA_SPECIALITY_IMAGE_DIR = 'media/specialization/'

@@ -21,13 +21,13 @@ from django.shortcuts import redirect
 
 
 
-def main_page(request):
-    return redirect("/board/all")
+# def main_page(request):
+#     return redirect("/board/all")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("board/", include("board.urls")),
-    path("",main_page)
+    path("", include("board.urls")),
+    # path("",main_page)
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
