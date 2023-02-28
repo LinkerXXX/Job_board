@@ -32,7 +32,7 @@
     <section class="mt-5 pt-3">
       <h2 class="h2 font-weight-normal text-center mb-5">Вакансии по рубрикам</h2>
       <div class="row mb-0">
-        <!-- Список спциализации автоматический -->
+        <!-- Список специализации автоматический -->
         {% for specialization in specializations %}
           <div class="col-6 col-md-6 col-lg-3">
             <div class="card pt-4 text-center mb-4">
@@ -40,7 +40,7 @@
 
               <div class="card-body">
                 <p class="card-text mb-2">{{ specialization.name }}</p>
-                <p class="card-text"><a href="#">{{specialization.vacancies.count}}</a></p>
+                <p class="card-text"><a href="/spec_list/{{ specialization.id }}/">{{specialization.vacancies.count}}</a></p>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
         {%for company in companies%}
         <div class="col-6 col-md-6 col-lg-3">
           <div class="card pt-4 text-center mb-4">
-            <a href="#" style="max-width: 150px;" class="mx-auto d-block">
+            <a href="/company_list/{{company.id}}/" style="max-width: 150px;" class="mx-auto d-block">
               <img class="mx-auto d-block mw-100" src="{{company.logo.url}}" alt="загрузка">
             </a>
             <div class="card-body">
