@@ -1,15 +1,26 @@
 from django.contrib import admin
 from board.models import Vacancy, Company, Specialization
 
-# Register your models here.
 
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
-    list_display = ("name", "specialization", "company", "skills", "description", "salary_max", "salary_min",)
+    list_display = (
+        "name",
+        "specialization",
+        "company",
+        "skills",
+        "description",
+        "salary_max",
+        "salary_min",
+    )
     search_fields = ("^company",)
-    list_filter = ("created_at", "specialization",)
+    list_filter = (
+        "created_at",
+        "specialization",
+    )
     ordering = ("updated_at",)
     readonly_fields = ("created_at", "updated_at")
+
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
@@ -17,6 +28,7 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ("^name",)
     list_filter = ("city",)
     ordering = ("name",)
+
 
 @admin.register(Specialization)
 class SpecializationAdmin(admin.ModelAdmin):

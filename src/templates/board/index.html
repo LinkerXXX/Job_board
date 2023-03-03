@@ -1,8 +1,5 @@
-{% extends 'base_src.html' %}
-{% block content %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'common.html' %}
+{% block content %}>
 <body>
   <main class="container mt-3">
     <section>
@@ -32,7 +29,6 @@
     <section class="mt-5 pt-3">
       <h2 class="h2 font-weight-normal text-center mb-5">Вакансии по рубрикам</h2>
       <div class="row mb-0">
-        <!-- Список специализации автоматический -->
         {% for specialization in specializations %}
           <div class="col-6 col-md-6 col-lg-3">
             <div class="card pt-4 text-center mb-4">
@@ -40,23 +36,21 @@
 
               <div class="card-body">
                 <p class="card-text mb-2">{{ specialization.name }}</p>
-                <p class="card-text"><a href="/spec_list/{{ specialization.id }}/">{{specialization.vacancies.count}}</a></p>
+                <p class="card-text"><a href="/vacancies/{{ specialization.slug }}/">{{specialization.vacancies.count}}</a></p>
               </div>
             </div>
           </div>
         {% endfor %}
-        <!--_____________________________________-->
       </div>
     </section>
 
     <section class="my-5 pt-3">
       <h2 class="h2 font-weight-normal text-center mb-5">Нам доверяют лучшие компании</h2>
       <div class="row mb-0">
-        <!-- Компании список автоматический -->
         {%for company in companies%}
         <div class="col-6 col-md-6 col-lg-3">
           <div class="card pt-4 text-center mb-4">
-            <a href="/company_list/{{company.id}}/" style="max-width: 150px;" class="mx-auto d-block">
+            <a href="/companies/{{company.id}}/" style="max-width: 150px;" class="mx-auto d-block">
               <img class="mx-auto d-block mw-100" src="{{company.logo.url}}" alt="загрузка">
             </a>
             <div class="card-body">
@@ -67,13 +61,9 @@
           </div>
         </div>
         {%endfor%}
-        <!--_____________________________________-->
       </div> 
     </section>
   </main>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html> 
 {% endblock %}

@@ -4,35 +4,48 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('board', '0001_initial'),
+        ("board", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='vacancy',
-            old_name='discription',
-            new_name='description',
+            model_name="vacancy",
+            old_name="discription",
+            new_name="description",
         ),
         migrations.AlterField(
-            model_name='company',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='images/company/', verbose_name='Логотип компании'),
+            model_name="company",
+            name="logo",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="images/company/",
+                verbose_name="Логотип компании",
+            ),
         ),
         migrations.AlterField(
-            model_name='specialization',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='images/specialization/', verbose_name='Логотип специализации'),
+            model_name="specialization",
+            name="logo",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="images/specialization/",
+                verbose_name="Логотип специализации",
+            ),
         ),
         migrations.AlterField(
-            model_name='vacancy',
-            name='salary_max',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Верхний предел зарплаты'),
+            model_name="vacancy",
+            name="salary_max",
+            field=models.IntegerField(
+                blank=True, null=True, verbose_name="Верхний предел зарплаты"
+            ),
         ),
         migrations.AlterField(
-            model_name='vacancy',
-            name='salary_min',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Нижний предел зарплаты'),
+            model_name="vacancy",
+            name="salary_min",
+            field=models.IntegerField(
+                blank=True, null=True, verbose_name="Нижний предел зарплаты"
+            ),
         ),
     ]

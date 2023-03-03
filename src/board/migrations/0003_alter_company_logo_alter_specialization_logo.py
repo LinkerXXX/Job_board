@@ -4,20 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('board', '0002_rename_discription_vacancy_description_and_more'),
+        ("board", "0002_rename_discription_vacancy_description_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='company',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='media/company/', verbose_name='Логотип компании'),
+            model_name="company",
+            name="logo",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="media/company/",
+                verbose_name="Логотип компании",
+            ),
         ),
         migrations.AlterField(
-            model_name='specialization',
-            name='logo',
-            field=models.ImageField(blank=True, null=True, upload_to='media/specialization/', verbose_name='Логотип специализации'),
+            model_name="specialization",
+            name="logo",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="media/specialization/",
+                verbose_name="Логотип специализации",
+            ),
         ),
     ]

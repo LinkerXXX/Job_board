@@ -20,14 +20,9 @@ from django.conf.urls.static import static
 from django.shortcuts import redirect
 
 
-
-# def main_page(request):
-#     return redirect("/board/all")
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include("board.urls")),
-    # path("",main_page)
 ]
 if settings.DEBUG:
-    urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
