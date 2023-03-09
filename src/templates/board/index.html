@@ -1,5 +1,6 @@
 {% extends 'common.html' %}
-{% block content %}>
+{% block content %}
+
 <body>
   <main class="container mt-3">
     <section>
@@ -36,7 +37,7 @@
 
               <div class="card-body">
                 <p class="card-text mb-2">{{ specialization.name }}</p>
-                <p class="card-text"><a href="/vacancies/{{ specialization.slug }}/">{{specialization.vacancies.count}}</a></p>
+                <p class="card-text"><a href="{% url 'specializations' specialization.slug %}">Количество вакансий: {{specialization.vacancies.count}}</a></p>
               </div>
             </div>
           </div>
@@ -50,12 +51,12 @@
         {%for company in companies%}
         <div class="col-6 col-md-6 col-lg-3">
           <div class="card pt-4 text-center mb-4">
-            <a href="/companies/{{company.id}}/" style="max-width: 150px;" class="mx-auto d-block">
+            <a href="{% url 'companies' company.id %}" style="max-width: 150px;" class="mx-auto d-block">
               <img class="mx-auto d-block mw-100" src="{{company.logo.url}}" alt="загрузка">
             </a>
             <div class="card-body">
-              <p class="card-text"><a href="#">
-                {{company.vacancies.count}}
+              <p class="card-text">
+                Количество вакансий: {{company.vacancies.count}}
               </a></p>
             </div>
           </div>
