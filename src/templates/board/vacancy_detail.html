@@ -1,0 +1,37 @@
+<html>
+    <header>
+        {% include 'includes/header.html' %}
+    </header>
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-12 col-lg-2">
+        <div class="pl-3 mb-5">
+          <p><a href="#">Назад</a></p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8">
+        <section class="pl-3">
+          <a href="#"><img src="{{vacancy.company.logo.url}}" width="130" height="80" alt=""></a>
+          <div class="d-flex align-items-baseline align-content-baseline">
+            <h1 class="h2 mt-4 font-weight-bold" >{{vacancy.name}}</h1>
+        <p class="m-0 pl-3">
+        {% if vacancy.salary_min  %}
+            <p>От {{vacancy.salary_min}} до {{vacancy.salary_max}}.</p>
+        {%endif%}
+        </p>
+          </div>
+          <p class="mt-2">{{vacancy.skills}}</p>
+          <p class="text-muted mb-4">{{vacancy.company.name}} ({{vacancy.company.employee_count}} человек), {{vacancy.company.city}} или удаленно</p>
+          <div style="line-height: 1.8;">
+            <p>{{vacancy.company.description}}</p>
+            <p><b>Мы предлагаем: </b><br>
+            {{vacancy.description}}<br>
+            </p>
+          </div>
+          {% include 'includes/interview.html' %}
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

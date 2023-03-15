@@ -19,11 +19,11 @@ env = environ.Env()
 environ.Env.read_env("../conf/default.env")
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env("DEBUG")
-
+#DEBUG = env("DEBUG")
+DEBUG = False
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
