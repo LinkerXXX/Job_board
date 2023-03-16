@@ -4,14 +4,11 @@ from board.models import Specialization, Company, Vacancy
 from django.views import View
 
 
-<<<<<<< HEAD
 
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
     queryset = Vacancy.objects.all()
 
-=======
->>>>>>> main
 class IndexView(View):
     template_name = "board/index.html"
 
