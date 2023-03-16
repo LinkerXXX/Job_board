@@ -19,8 +19,8 @@ env = environ.Env()
 environ.Env.read_env("../conf/default.env")
 SECRET_KEY = env("SECRET_KEY")
 
-#DEBUG = env("DEBUG")
-DEBUG = False
+DEBUG = env("DEBUG")
+#DEBUG = False
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ALLOWED_HOSTS = ['127.0.0.1']
