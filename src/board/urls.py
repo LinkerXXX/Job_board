@@ -5,6 +5,7 @@ from board.views import (
     VacancyListView,
     SpecializationListView,
     CompanyListView,
+    VacancyDetailView,
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
         name="specializations",
     ),
     path("companies/<int:pk>/", CompanyListView.as_view(), name="companies"),
+    path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="vacancy"),
 ]
