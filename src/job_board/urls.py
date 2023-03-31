@@ -31,5 +31,3 @@ if settings.DEBUG:
 handler404 = "core.views.page_404_view"
 
 handler500 = "core.views.page_500_view"
-
-

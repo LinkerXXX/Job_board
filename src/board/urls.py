@@ -17,5 +17,5 @@ urlpatterns = [
         name="specializations",
     ),
     path("companies/<int:pk>/", CompanyListView.as_view(), name="companies"),
-    path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="detail")
+    path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="vacancy"),
 ]

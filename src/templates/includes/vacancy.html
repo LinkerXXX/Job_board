@@ -2,7 +2,7 @@
   <div class="card-body px-4">
     <div class="row">
       <div class="col-12 col-md-8 col-lg-9">
-        <h2 class="h2 pb-2"><a href="{% url 'detail' vacancy.pk %}">{{vacancy.name}}</a></h2>
+        <h2 class="h2 pb-2"><a href="{% url 'vacancy' vacancy.pk %}">{{vacancy.name}}</a></h2>
         <p class="mb-2">{{vacancy.skills}}</p>
         {% if vacancy.salary_min  %}
               <p>От {{vacancy.salary_min}} до {{vacancy.salary_max}}.</p>
