@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User 
+
 
 
 class Specialization(models.Model):
@@ -35,6 +37,14 @@ class Company(models.Model):
     )
     description = models.TextField(max_length=1023, verbose_name="Описание компании")
     employee_count = models.IntegerField(verbose_name="Численность сотрудников")
+    Owner = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="companies",
+        verbose_name="Владелец",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         verbose_name = "Компания"
@@ -83,6 +93,38 @@ class Vacancy(models.Model):
         verbose_name = "Вакансия"
         verbose_name_plural = "Вакансии"
         ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.name
+
+class Application(models.Model):
+    name = models.CharField(
+        max_length=50, blank=False, null=False, verbose_name="Имя отклика"
+    )
+    telephone =  models.CharField(
+        max_length=50, blank=False, null=False, verbose_name="Номер телефона"
+    )
+    covering_letter = models.TextField(max_length=1023, verbose_name="Сопроводительное письмо")
+    vacancy = models.ForeignKey(
+        Vacancy,
+        null=False,
+        blank=False,
+        related_name="applications",
+        verbose_name="Вакансии",
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        User,
+        null=False,
+        blank=False,
+        related_name="applications",
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = "Отклик"
+        verbose_name_plural = "Отклики"
 
     def __str__(self):
         return self.name
