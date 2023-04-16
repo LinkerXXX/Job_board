@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User 
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 
 class Specialization(models.Model):
     name = models.CharField(
@@ -37,7 +37,7 @@ class Company(models.Model):
     )
     description = models.TextField(max_length=1023, verbose_name="Описание компании")
     employee_count = models.IntegerField(verbose_name="Численность сотрудников")
-    Owner = models.ForeignKey(
+    owner = models.ForeignKey(
         User,
         null=True,
         blank=True,
@@ -101,14 +101,12 @@ class Application(models.Model):
     name = models.CharField(
         max_length=50, blank=False, null=False, verbose_name="Имя отклика"
     )
-    telephone =  models.CharField(
+    phone =  models.CharField(
         max_length=50, blank=False, null=False, verbose_name="Номер телефона"
     )
     covering_letter = models.TextField(max_length=1023, verbose_name="Сопроводительное письмо")
     vacancy = models.ForeignKey(
         Vacancy,
-        null=False,
-        blank=False,
         related_name="applications",
         verbose_name="Вакансии",
         on_delete=models.CASCADE,
