@@ -6,6 +6,9 @@ from board.views import (
     SpecializationListView,
     CompanyListView,
     VacancyDetailView,
+    CreateUserView,
+    UserAuthView,
+    LogoutView
 )
 
 urlpatterns = [
@@ -18,4 +21,7 @@ urlpatterns = [
     ),
     path("companies/<int:pk>/", CompanyListView.as_view(), name="companies"),
     path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="vacancy"),
+    path("register/",CreateUserView.as_view(), name="createUser"),
+    path("login/", UserAuthView.as_view(), name="authUser"),
+    path("logout/", LogoutView.as_view(), name="logoutUser"),
 ]

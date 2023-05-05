@@ -18,7 +18,14 @@
             </ul>
             <ul class="navbar-nav col-2 justify-content-end">
               <li class="nav-item active">
-                <a href="#" class="nav-link font-weight-bold">Вход</a>
+                {% if not user.is_authenticated %}
+                  <a href="/register/" class="nav-link font-weight-bold">Регистрация</a>
+                  <a href="/login/" class="nav-link font-weight-bold">Вход</a>
+                {%  endif %}
+                {% if user.is_authenticated %}
+                    <h6 class="nav-link font-weight-bold">{{ user.username }}  aka {{user.last_name}} {{user.first_name}}</h6>
+                    <a href="/logout/" class="nav-link font-weight-bold">Выход</a>
+                {% endif %}
               </li>
             </ul>
           </div>
