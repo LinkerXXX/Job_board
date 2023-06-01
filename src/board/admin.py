@@ -1,6 +1,5 @@
 from django.contrib import admin
-from board.models import Vacancy, Company, Specialization
-
+from board.models import Vacancy, Company, Specialization, Application
 
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
@@ -36,3 +35,9 @@ class SpecializationAdmin(admin.ModelAdmin):
     search_fields = ("^name",)
     list_filter = ("name",)
     ordering = ("name",)
+
+@admin.register(Application)
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = ("user", "vacancy", "phone", "covering_letter",)
+    list_filter = ("vacancy",)
+    ordering = ("user",)

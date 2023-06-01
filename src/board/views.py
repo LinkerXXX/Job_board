@@ -1,17 +1,16 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from board.models import Specialization, Company, Vacancy
+from board.models import Specialization, Company, Vacancy, User, Application
 from django.views import View
-from board.forms import UserCreateForm, UserAuthForm
+from board.forms import UserCreateForm, UserAuthForm, ApplicationMessageForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
-
+from django.views.generic.edit import FormView
 
 
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
     queryset = Vacancy.objects.all()
-
 
 class IndexView(View):
     template_name = "board/index.html"
@@ -46,7 +45,7 @@ class CompanyListView(DetailView):
 
 class CreateUserView(CreateView):
     form_class = UserCreateForm 
-    template_name='account/create_user.html' 
+    template_name = 'account/create_user.html' 
     success_url = '/vacancies/'
 
 class UserAuthView(LoginView):
@@ -56,3 +55,18 @@ class UserAuthView(LoginView):
 
 class LogoutView(LogoutView):
     next_page = "main_page"
+
+
+class ApplicationMessageView(FormView):
+    form_class = ApplicationMessageForm
+    template_name = 'includes/interview.html'
+    success_url = '/'
+    
+
+    
+
+    
+
+
+
+    

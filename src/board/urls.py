@@ -8,7 +8,8 @@ from board.views import (
     VacancyDetailView,
     CreateUserView,
     UserAuthView,
-    LogoutView
+    LogoutView,
+    
 )
 
 urlpatterns = [
