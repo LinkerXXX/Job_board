@@ -1,8 +1,17 @@
-<form method="post" class="card mt-4 mb-3" enctype="multipart/form-data">
+<!-- https://docs.djangoproject.com/en/4.2/topics/forms/ -->
+<form method="post" action="/vacancy/{{vacancy.id}}/application/" class="card mt-4 mb-3" enctype="multipart/form-data">
   {% csrf_token %}
     <div class="card-body mx-3">
       <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
-      <div class=" form-label-group">
+      {% for field in form_app %}
+        <div class="fieldWrapper">
+          {% if field.label != "Вакансии" and field.label != "Пользователь" %}
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+          {% endif %}
+        </div>
+      {% endfor %}
+      <!-- <div class=" form-label-group">
         <p>
           <label for="id_user">Логин:</label>
           <input type="user" name="user" maxlength="254" required id="id_user">
@@ -28,7 +37,7 @@
           <label for="id_covering_letter">Сопроводительное письмо:</label>
           <input type="covering_letter" name="covering_letter" required id="id_covering_letter">
         </p>
-      </div>
+      </div> -->
       <button class="btn btn-primary btn-lg btn-block" type="submit">Отправить заявку</button>
     </div>
   </form>

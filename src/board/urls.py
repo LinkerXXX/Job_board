@@ -9,7 +9,7 @@ from board.views import (
     CreateUserView,
     UserAuthView,
     LogoutView,
-    
+    ApplicationMessageView
 )
 
 urlpatterns = [
@@ -25,4 +25,5 @@ urlpatterns = [
     path("register/",CreateUserView.as_view(), name="createUser"),
     path("login/", UserAuthView.as_view(), name="authUser"),
     path("logout/", LogoutView.as_view(), name="logoutUser"),
+    path("vacancy/<int:pk>/application/", ApplicationMessageView.as_view(), name="applicationMessage"),
 ]

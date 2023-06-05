@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from board.models import Specialization, Company, Vacancy, User, Application
@@ -8,9 +9,15 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
 
 
+# https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
     queryset = Vacancy.objects.all()
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["form_app"] = ApplicationMessageForm(initial={"vacancy": context["vacancy"], "user": self.request.user})
+        return context
 
 class IndexView(View):
     template_name = "board/index.html"
@@ -57,14 +64,12 @@ class LogoutView(LogoutView):
     next_page = "main_page"
 
 
-class ApplicationMessageView(FormView):
+class ApplicationMessageView(CreateView):
     form_class = ApplicationMessageForm
     template_name = 'includes/interview.html'
     success_url = '/'
-    
 
-    
-
+# https://github.com/django/django/blob/main/django/views/generic/edit.py#L185
     
 
 
