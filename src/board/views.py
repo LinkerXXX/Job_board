@@ -7,7 +7,7 @@ from board.forms import UserCreateForm, UserAuthForm, ApplicationMessageForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
-
+from django.shortcuts import render, redirect
 
 # https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
 class VacancyDetailView(DetailView):
@@ -16,8 +16,18 @@ class VacancyDetailView(DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["form_app"] = ApplicationMessageForm(initial={"vacancy": context["vacancy"], "user": self.request.user})
+        context["form"] = ApplicationMessageForm(initial={"vacancy": context["vacancy"], "user": self.request.user})
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = ApplicationMessageForm(request.POST, request.FILES)
+        application = form.save(commit=False)
+        application.vacancy = self.get_object()
+        application.save()
+        return redirect('vacancies')
+
+
+    
 
 class IndexView(View):
     template_name = "board/index.html"
@@ -64,10 +74,7 @@ class LogoutView(LogoutView):
     next_page = "main_page"
 
 
-class ApplicationMessageView(CreateView):
-    form_class = ApplicationMessageForm
-    template_name = 'includes/interview.html'
-    success_url = '/'
+
 
 # https://github.com/django/django/blob/main/django/views/generic/edit.py#L185
     
