@@ -16,18 +16,18 @@ class VacancyDetailView(DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["form"] = ApplicationMessageForm(initial={"vacancy": context["vacancy"], "user": self.request.user})
+        context["form"] = ApplicationMessageForm()
         return context
 
     def post(self, request, *args, **kwargs):
         form = ApplicationMessageForm(request.POST, request.FILES)
-        application = form.save(commit=False)
-        application.vacancy = self.get_object()
-        application.save()
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.vacancy = self.get_object()
+            application.user = self.request.user
+            application.save()
         return redirect('vacancies')
 
-
-    
 
 class IndexView(View):
     template_name = "board/index.html"

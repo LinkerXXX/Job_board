@@ -6,12 +6,10 @@
     <div class="card-body mx-3">
       <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
       {% for field in form %}
-      
         <div class="fieldWrapper">
           {{ field.errors }}
           {{ field.label_tag }} {{ field }}
         </div>
-        
       {% endfor %}
       <button class="btn btn-primary btn-lg btn-block" type="submit">Отправить заявку</button>
     </div>

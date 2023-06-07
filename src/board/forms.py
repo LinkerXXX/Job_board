@@ -18,4 +18,4 @@ class UserAuthForm(AuthenticationForm):
 class ApplicationMessageForm(ModelForm):
     class Meta:
         model = Application
-        fields = ["user", "name", "phone", "covering_letter", "vacancy"]
+        fields = ["name", "phone", "covering_letter"]
