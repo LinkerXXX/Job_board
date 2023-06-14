@@ -4,6 +4,7 @@ from board.models import Specialization, Company, Vacancy
 from django.views import View
 
 
+
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
     queryset = Vacancy.objects.all()
@@ -36,3 +37,5 @@ class SpecializationListView(DetailView):
 class CompanyListView(DetailView):
     template_name = "board/company_list.html"
     queryset = Company.objects.all()
+
+
