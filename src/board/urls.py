@@ -11,6 +11,7 @@ from board.views import (
     LogoutView,
     #ApplicationMessageView
 )
+from account.views import CreateUserView
 
 urlpatterns = [
     path("", IndexView.as_view(), name="main_page"),

@@ -1,6 +1,8 @@
+from datetime import timezone
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -112,6 +114,7 @@ class Application(models.Model):
         on_delete=models.CASCADE,
     )
     user = models.ForeignKey(
+
         User,
         null=False,
         blank=False,
@@ -126,3 +129,4 @@ class Application(models.Model):
 
     def __str__(self):
         return self.name
+

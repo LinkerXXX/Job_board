@@ -9,7 +9,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 
+
 # https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
+
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
     queryset = Vacancy.objects.all()
@@ -73,12 +75,4 @@ class UserAuthView(LoginView):
 class LogoutView(LogoutView):
     next_page = "main_page"
 
-
-
-
 # https://github.com/django/django/blob/main/django/views/generic/edit.py#L185
-    
-
-
-
-    
