@@ -1,8 +1,10 @@
 from datetime import timezone
 from django.db import models
 from django.conf import settings
-from account.models import User
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
 
 class Specialization(models.Model):
     name = models.CharField(
@@ -97,17 +99,14 @@ class Vacancy(models.Model):
     def __str__(self):
         return self.name
 
-
 class Application(models.Model):
     name = models.CharField(
         max_length=50, blank=False, null=False, verbose_name="Имя отклика"
     )
-    phone = models.CharField(
+    phone =  models.CharField(
         max_length=50, blank=False, null=False, verbose_name="Номер телефона"
     )
-    covering_letter = models.TextField(
-        max_length=1023, verbose_name="Сопроводительное письмо"
-    )
+    covering_letter = models.TextField(max_length=1023, verbose_name="Сопроводительное письмо")
     vacancy = models.ForeignKey(
         Vacancy,
         related_name="applications",
@@ -115,12 +114,14 @@ class Application(models.Model):
         on_delete=models.CASCADE,
     )
     user = models.ForeignKey(
-        User, 
+
+        User,
         null=False,
         blank=False,
         related_name="applications",
         verbose_name="Пользователь",
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         verbose_name = "Отклик"
@@ -128,3 +129,4 @@ class Application(models.Model):
 
     def __str__(self):
         return self.name
+

@@ -11,7 +11,7 @@
   <main class="container">
     <div class="row">
       <div class="col-8 col-lg-4 offset-2 offset-lg-4">
-        <form method="post" action="/account/auth/">
+        <form method="post" action="/login/">
           <div class="text-center mt-5 b-1">
             {% csrf_token %}
             <h1 class="h3 mb-3 font-weight-normal">Рабочая база</h1>
@@ -35,9 +35,7 @@
           <div class="checkbox mb-3"></div>
           <input type="submit" value="Войти">
         </form>
-
-        <div class="mt-4 text-center"><p>Нет аккаунта? <a href="/account/create/">Зарегистрируйтесь!</a></p></div>
-
+        <div class="mt-4 text-center"><p>Нет аккаунта? <a href="/board/register/">Зарегистрируйтесь!</a></p></div>
       </div>
     </div>
   </main>

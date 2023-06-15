@@ -6,6 +6,10 @@ from board.views import (
     SpecializationListView,
     CompanyListView,
     VacancyDetailView,
+    CreateUserView,
+    UserAuthView,
+    LogoutView,
+    #ApplicationMessageView
 )
 from account.views import CreateUserView
 
@@ -18,5 +22,9 @@ urlpatterns = [
         name="specializations",
     ),
     path("companies/<int:pk>/", CompanyListView.as_view(), name="companies"),
-    path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="vacancy")
+    path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="vacancy"),
+    path("register/",CreateUserView.as_view(), name="createUser"),
+    path("login/", UserAuthView.as_view(), name="authUser"),
+    path("logout/", LogoutView.as_view(), name="logoutUser"),
+    #path("vacancy/<int:pk>/application/", ApplicationMessageView.as_view(), name="applicationMessage"),
 ]

@@ -1,13 +1,34 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from board.models import Specialization, Company, Vacancy
+from board.models import Specialization, Company, Vacancy, User, Application
 from django.views import View
+from board.forms import UserCreateForm, UserAuthForm, ApplicationMessageForm
+from django.views.generic.edit import CreateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic.edit import FormView
+from django.shortcuts import render, redirect
 
 
+# https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
 
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
     queryset = Vacancy.objects.all()
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["form"] = ApplicationMessageForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ApplicationMessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.vacancy = self.get_object()
+            application.user = self.request.user
+            application.save()
+        return redirect('vacancies')
 
 
 class IndexView(View):
@@ -39,3 +60,19 @@ class CompanyListView(DetailView):
     queryset = Company.objects.all()
 
 
+########################################################
+
+class CreateUserView(CreateView):
+    form_class = UserCreateForm 
+    template_name = 'account/create_user.html' 
+    success_url = '/vacancies/'
+
+class UserAuthView(LoginView):
+    form_class = UserAuthForm
+    template_name = 'account/auth.html'
+    next_page = '/vacancies/'
+
+class LogoutView(LogoutView):
+    next_page = "main_page"
+
+# https://github.com/django/django/blob/main/django/views/generic/edit.py#L185

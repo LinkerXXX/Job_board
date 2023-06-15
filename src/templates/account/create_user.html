@@ -4,7 +4,7 @@
   <main class="container">
     <div class="row">
       <div class="col-8 col-lg-4 offset-2 offset-lg-4">
-        <form method="post" action="/account/create/">
+        <form method="post" action="/register/">
           {% csrf_token %}
           <div class="text-center mt-5 b-1">
 
@@ -42,13 +42,6 @@
 
           <div class="form-label-group">
             <p>
-              <label for="id_birthday">День рождения:</label>
-              <input type="birthday" name="birthday" required id="id_birthday">
-            </p>
-          </div>
-
-          <div class="form-label-group">
-            <p>
               <label for="id_password1">Пароль:</label>
               <input type="password" name="password1" required id="id_password1">
             </p>
@@ -65,12 +58,10 @@
           <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
           
         </form>
-
-         <div class="mt-4 text-center"><p>Есть аккаунт? <a href="/account/auth/">Войдите!</a></p></div>
+         <div class="mt-4 text-center"><p>Есть аккаунт? <a href="/board/auth/">Войдите!</a></p></div>
       </div>
     </div>
   </main>
 </body>
 </html>
 {% endblock %}
-
