@@ -23,8 +23,17 @@
                   <a href="/login/" class="nav-link font-weight-bold">Вход</a>
                 {%  endif %}
                 {% if user.is_authenticated %}
-                    <h6 class="nav-link font-weight-bold">{{ user.username }}  aka {{user.last_name}} {{user.first_name}}</h6>
-                    <a href="/logout/" class="nav-link font-weight-bold">Выход</a>
+                <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <h6 class="nav-link font-weight-bold">{{ user.username }}  aka {{user.last_name}} {{user.first_name}}</h6>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right mt-3">
+                  <a href="#" class="dropdown-item py-2">Профиль</a>
+                  <a href="#" class="dropdown-item py-2">Резюме</a>
+                  <a href="/mycompany/" class="dropdown-item py-2">Компания</a>
+                  <a href="/logout/" class="dropdown-item py-2">Выход</a>
+                </div>
+              </div>
                 {% endif %}
               </li>
             </ul>

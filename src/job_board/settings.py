@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "board",
     "core",
-    "account"
+    "account",
 ]
 
 MIDDLEWARE = [
@@ -111,7 +111,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = "account.User"
 
 MEDIA_URL = "/media/"
 # MEDIA_ROOT = 'C:/Users/Pozdnuhov/Desktop/Python_work/images'

@@ -3,14 +3,20 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from board.models import Specialization, Company, Vacancy, User, Application
 from django.views import View
-from board.forms import UserCreateForm, UserAuthForm, ApplicationMessageForm
-from django.views.generic.edit import CreateView
+from board.forms import (
+    UserCreateForm,
+    UserAuthForm,
+    ApplicationMessageForm,
+    CompanyCreateForm,
+)
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 
 
 # https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
+
 
 class VacancyDetailView(DetailView):
     template_name = "board/vacancy_detail.html"
@@ -28,7 +34,7 @@ class VacancyDetailView(DetailView):
             application.vacancy = self.get_object()
             application.user = self.request.user
             application.save()
-        return redirect('vacancies')
+        return redirect("vacancies")
 
 
 class IndexView(View):
@@ -62,17 +68,75 @@ class CompanyListView(DetailView):
 
 ########################################################
 
+
 class CreateUserView(CreateView):
-    form_class = UserCreateForm 
-    template_name = 'account/create_user.html' 
-    success_url = '/vacancies/'
+    form_class = UserCreateForm
+    template_name = "account/create_user.html"
+    success_url = "/vacancies/"
+
 
 class UserAuthView(LoginView):
     form_class = UserAuthForm
-    template_name = 'account/auth.html'
-    next_page = '/vacancies/'
+    template_name = "account/auth.html"
+    next_page = "/vacancies/"
+
 
 class LogoutView(LogoutView):
     next_page = "main_page"
 
+
 # https://github.com/django/django/blob/main/django/views/generic/edit.py#L185
+
+
+#################################################
+
+
+class CompanyDetailVacanciesView(View):
+    template_name = "board/mycompany_detail_vacancies.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            company = Company.objects.filter(owner=request.user).first()
+            if company:
+                context = {"company": company}
+                return render(request, self.template_name, context)
+            else:
+                return redirect("vacancies")
+        else:
+            return render(request, "account/auth.html")
+
+
+class CompanyDetailView(View):
+    template_name = "board/mycompany_detail.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            company = Company.objects.filter(owner=request.user).first()
+            if company:
+                context = {"company": company}
+                return render(request, self.template_name, context)
+            else:
+                return redirect("vacancies")
+        else:
+            return render(request, "account/auth.html")
+
+
+class CompanyCreateView(CreateView):
+    template_name = "board/create_company.html"
+    queryset = Company.objects.all()
+    fields = ["name", "city", "logo", "description", "employee_count"]
+
+    def post(self, request, *args, **kwargs):
+        form = CompanyCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            company = form.save(commit=False)
+            company.owner = self.request.user
+            company.save()
+        return redirect("mycompany")
+
+
+class CompanyUpdateView(UpdateView):
+    queryset = Company.objects.all()
+    fields = ["name", "city", "logo", "description", "employee_count"]
+    template_name = "board/update_company.html"
+    success_url = "/mycompany/"
