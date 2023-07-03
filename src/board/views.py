@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
-
+from django.urls import reverse_lazy
 
 # https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
 
@@ -96,12 +96,12 @@ class CompanyDetailVacanciesView(View):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            company = Company.objects.filter(owner=request.user).first()
+            company = request.user.companies.first()
             if company:
                 context = {"company": company}
                 return render(request, self.template_name, context)
             else:
-                return redirect("vacancies")
+                return redirect("mycompany_creation")
         else:
             return render(request, "account/auth.html")
 
@@ -111,12 +111,12 @@ class CompanyDetailView(View):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            company = Company.objects.filter(owner=request.user).first()
+            company = request.user.companies.first()
             if company:
                 context = {"company": company}
                 return render(request, self.template_name, context)
             else:
-                return redirect("vacancies")
+                return redirect("mycompany_creation")
         else:
             return render(request, "account/auth.html")
 
@@ -125,18 +125,31 @@ class CompanyCreateView(CreateView):
     template_name = "board/create_company.html"
     queryset = Company.objects.all()
     fields = ["name", "city", "logo", "description", "employee_count"]
+    success_url = reverse_lazy("mycompany")
 
-    def post(self, request, *args, **kwargs):
-        form = CompanyCreateForm(request.POST, request.FILES)
-        if form.is_valid():
-            company = form.save(commit=False)
-            company.owner = self.request.user
-            company.save()
-        return redirect("mycompany")
-
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
+#reverse("mycompany_creation")
 
 class CompanyUpdateView(UpdateView):
     queryset = Company.objects.all()
     fields = ["name", "city", "logo", "description", "employee_count"]
     template_name = "board/update_company.html"
     success_url = "/mycompany/"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(owner=self.request.user)
+        print(queryset)
+        return queryset
+
+
+#def post(self, request, *args, **kwargs):
+#        form = CompanyCreateForm(request.POST, request.FILES)
+#        if form.is_valid():
+#            company = form.save(commit=False)
+#            company.owner = self.request.user
+#            company.save()
+#        return redirect("mycompany")

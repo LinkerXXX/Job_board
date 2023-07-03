@@ -24,7 +24,7 @@ class VacancyAdmin(admin.ModelAdmin):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ("name", "city", "description", "employee_count")
+    list_display = ("name", "city", "description", "employee_count", "id")
     search_fields = ("^name",)
     list_filter = ("city",)
     ordering = ("name",)
