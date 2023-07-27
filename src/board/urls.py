@@ -14,6 +14,9 @@ from board.views import (
     CompanyCreateView,
     CompanyUpdateView,
     # ApplicationMessageView
+    VacancyUpdateView,
+    VacancyCreateView
+    #ApplicationMessageView
 )
 from account.views import CreateUserView
 
@@ -42,4 +45,10 @@ urlpatterns = [
         CompanyUpdateView.as_view(),
         name="mycompany_update",
     ),
+    path(
+        "myvacancy_update/<int:pk>/",
+        VacancyUpdateView.as_view(),
+        name="myvacancy_update",
+    ),
+    path("myvacancy_creation/", VacancyCreateView.as_view(), name="myvacancy_creation"),
 ]
