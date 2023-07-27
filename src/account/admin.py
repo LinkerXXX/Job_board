@@ -10,11 +10,9 @@ class UserAdmin(admin.ModelAdmin):
         "last_name",
         "birthday",
         "email",
+        "id"
     )
     search_fields = ("^company",)
-    list_filter = (
-        "first_name",
-        "last_name"
-    )
+    list_filter = ("first_name", "last_name")
     ordering = ("username",)
     readonly_fields = ("birthday",)

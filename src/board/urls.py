@@ -9,7 +9,11 @@ from board.views import (
     CreateUserView,
     UserAuthView,
     LogoutView,
-    #ApplicationMessageView
+    CompanyDetailVacanciesView,
+    CompanyDetailView,
+    CompanyCreateView,
+    CompanyUpdateView,
+    # ApplicationMessageView
 )
 from account.views import CreateUserView
 
@@ -23,8 +27,19 @@ urlpatterns = [
     ),
     path("companies/<int:pk>/", CompanyListView.as_view(), name="companies"),
     path("vacancy/<int:pk>/", VacancyDetailView.as_view(), name="vacancy"),
-    path("register/",CreateUserView.as_view(), name="createUser"),
+    path("register/", CreateUserView.as_view(), name="createUser"),
     path("login/", UserAuthView.as_view(), name="authUser"),
     path("logout/", LogoutView.as_view(), name="logoutUser"),
-    #path("vacancy/<int:pk>/application/", ApplicationMessageView.as_view(), name="applicationMessage"),
+    path(
+        "mycompany/vacancies/",
+        CompanyDetailVacanciesView.as_view(),
+        name="mycompany_vacancies",
+    ),
+    path("mycompany/", CompanyDetailView.as_view(), name="mycompany"),
+    path("mycompany_creation/", CompanyCreateView.as_view(), name="mycompany_creation"),
+    path(
+        "mycompany_update/<int:pk>/",
+        CompanyUpdateView.as_view(),
+        name="mycompany_update",
+    ),
 ]

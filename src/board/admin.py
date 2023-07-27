@@ -1,6 +1,7 @@
 from django.contrib import admin
 from board.models import Vacancy, Company, Specialization, Application
 
+
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
     list_display = (
@@ -23,7 +24,7 @@ class VacancyAdmin(admin.ModelAdmin):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ("name", "city", "description", "employee_count")
+    list_display = ("name", "city", "description", "employee_count", "id")
     search_fields = ("^name",)
     list_filter = ("city",)
     ordering = ("name",)
@@ -36,8 +37,14 @@ class SpecializationAdmin(admin.ModelAdmin):
     list_filter = ("name",)
     ordering = ("name",)
 
+
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ("user", "vacancy", "phone", "covering_letter",)
+    list_display = (
+        "user",
+        "vacancy",
+        "phone",
+        "covering_letter",
+    )
     list_filter = ("vacancy",)
     ordering = ("user",)
