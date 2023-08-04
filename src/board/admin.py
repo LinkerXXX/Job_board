@@ -1,5 +1,5 @@
 from django.contrib import admin
-from board.models import Vacancy, Company, Specialization, Application
+from board.models import Vacancy, Company, Specialization, Application, Summary
 
 
 @admin.register(Vacancy)
@@ -45,6 +45,18 @@ class ApplicationAdmin(admin.ModelAdmin):
         "vacancy",
         "phone",
         "covering_letter",
+    )
+    list_filter = ("vacancy",)
+    ordering = ("user",)
+
+
+@admin.register(Summary)
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "vacancy",
+        "skills",
+        "contacts",
     )
     list_filter = ("vacancy",)
     ordering = ("user",)
