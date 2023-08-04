@@ -356,28 +356,19 @@ class CompanyDetailVacanciesView(View):
     template_name = "board/mycompany_detail_vacancies.html"
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
+        company = request.user.companies.first()
+        if request.user.is_authenticated and company:
+            return render(request, self.template_name, {"company": company})
         else:
             return render(request, "account/auth.html")
-
 
 class CompanyDetailView(View):
     template_name = "board/mycompany_detail.html"
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
+        company = request.user.companies.first()
+        if request.user.is_authenticated and company:
+            return render(request, self.template_name, {"company": company})
         else:
             return render(request, "account/auth.html")
 
@@ -415,9 +406,7 @@ class VacancyUpdateView(UpdateView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user = self.request.user
-        queryset = queryset.filter(company__owner=user)
-        return queryset
+        return queryset.filter(company__owner=self.request.user)
     
 
 
