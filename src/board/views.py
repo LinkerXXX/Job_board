@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from board.models import Specialization, Company, Vacancy, User, Application
+from board.models import Specialization, Company, Vacancy, User, Application, Summary
 from django.views import View
 from board.forms import (
     UserCreateForm,
@@ -88,268 +88,7 @@ class LogoutView(LogoutView):
 # https://github.com/django/django/blob/main/django/views/generic/edit.py#L185
 
 
-#################################################
-
-
-class CompanyDetailVacanciesView(View):
-    template_name = "board/mycompany_detail_vacancies.html"
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
-        else:
-            return render(request, "account/auth.html")
-
-
-class CompanyDetailView(View):
-    template_name = "board/mycompany_detail.html"
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
-        else:
-            return render(request, "account/auth.html")
-
-
-class CompanyCreateView(CreateView):
-    template_name = "board/create_company.html"
-    queryset = Company.objects.all()
-    fields = ["name", "city", "logo", "description", "employee_count"]
-    success_url = reverse_lazy("mycompany")
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-
-# reverse("mycompany_creation")
-
-
-class CompanyUpdateView(UpdateView):
-    queryset = Company.objects.all()
-    fields = ["name", "city", "logo", "description", "employee_count"]
-    template_name = "board/update_company.html"
-    success_url = "/mycompany/"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(owner=self.request.user)
-        return queryset
-
-
 ##########################################
-
-class VacancyUpdateView(UpdateView):
-    queryset = Vacancy.objects.all()
-    fields = ["name", "specialization", "skills", "description", "salary_max", "salary_min"]
-    template_name = "board/update_vacancy.html"
-    success_url = "/mycompany/"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        user = self.request.user
-        queryset = queryset.filter(company__owner=user)
-        return queryset
-    
-
-
-class VacancyCreateView(CreateView):
-    template_name = "board/create_vacancy.html"
-    queryset = Vacancy.objects.all()
-    fields = ["name", "specialization", "skills", "description", "salary_max", "salary_min"]
-    success_url = reverse_lazy("mycompany")
-
-    def form_valid(self, form):
-        company = Company.objects.filter(owner=self.request.user).first()
-        form.instance.company = company
-        return super().form_valid(form)
-
-
-#################################################
-
-
-class CompanyDetailVacanciesView(View):
-    template_name = "board/mycompany_detail_vacancies.html"
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
-        else:
-            return render(request, "account/auth.html")
-
-
-class CompanyDetailView(View):
-    template_name = "board/mycompany_detail.html"
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
-        else:
-            return render(request, "account/auth.html")
-
-
-class CompanyCreateView(CreateView):
-    template_name = "board/create_company.html"
-    queryset = Company.objects.all()
-    fields = ["name", "city", "logo", "description", "employee_count"]
-    success_url = reverse_lazy("mycompany")
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-
-# reverse("mycompany_creation")
-
-
-class CompanyUpdateView(UpdateView):
-    queryset = Company.objects.all()
-    fields = ["name", "city", "logo", "description", "employee_count"]
-    template_name = "board/update_company.html"
-    success_url = "/mycompany/"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(owner=self.request.user)
-        return queryset
-
-
-##########################################
-
-class VacancyUpdateView(UpdateView):
-    queryset = Vacancy.objects.all()
-    fields = ["name", "specialization", "skills", "description", "salary_max", "salary_min"]
-    template_name = "board/update_vacancy.html"
-    success_url = "/mycompany/"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        user = self.request.user
-        queryset = queryset.filter(company__owner=user)
-        return queryset
-    
-
-
-class VacancyCreateView(CreateView):
-    template_name = "board/create_vacancy.html"
-    queryset = Vacancy.objects.all()
-    fields = ["name", "specialization", "skills", "description", "salary_max", "salary_min"]
-    success_url = reverse_lazy("mycompany")
-
-    def form_valid(self, form):
-        company = Company.objects.filter(owner=self.request.user).first()
-        form.instance.company = company
-        return super().form_valid(form)
-
-
-#################################################
-
-
-class CompanyDetailVacanciesView(View):
-    template_name = "board/mycompany_detail_vacancies.html"
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
-        else:
-            return render(request, "account/auth.html")
-
-
-class CompanyDetailView(View):
-    template_name = "board/mycompany_detail.html"
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            company = request.user.companies.first()
-            if company:
-                context = {"company": company}
-                return render(request, self.template_name, context)
-            else:
-                return redirect("mycompany_creation")
-        else:
-            return render(request, "account/auth.html")
-
-
-class CompanyCreateView(CreateView):
-    template_name = "board/create_company.html"
-    queryset = Company.objects.all()
-    fields = ["name", "city", "logo", "description", "employee_count"]
-    success_url = reverse_lazy("mycompany")
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-
-# reverse("mycompany_creation")
-
-
-class CompanyUpdateView(UpdateView):
-    queryset = Company.objects.all()
-    fields = ["name", "city", "logo", "description", "employee_count"]
-    template_name = "board/update_company.html"
-    success_url = "/mycompany/"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(owner=self.request.user)
-        return queryset
-
-
-##########################################
-
-class VacancyUpdateView(UpdateView):
-    queryset = Vacancy.objects.all()
-    fields = ["name", "specialization", "skills", "description", "salary_max", "salary_min"]
-    template_name = "board/update_vacancy.html"
-    success_url = "/mycompany/"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        user = self.request.user
-        queryset = queryset.filter(company__owner=user)
-        return queryset
-    
-
-
-class VacancyCreateView(CreateView):
-    template_name = "board/create_vacancy.html"
-    queryset = Vacancy.objects.all()
-    fields = ["name", "specialization", "skills", "description", "salary_max", "salary_min"]
-    success_url = reverse_lazy("mycompany")
-
-    def form_valid(self, form):
-        company = Company.objects.filter(owner=self.request.user).first()
-        form.instance.company = company
-        return super().form_valid(form)
-
-
-#################################################
 
 
 class CompanyDetailVacanciesView(View):
@@ -420,3 +159,40 @@ class VacancyCreateView(CreateView):
         company = Company.objects.filter(owner=self.request.user).first()
         form.instance.company = company
         return super().form_valid(form)
+    
+
+
+    ##################################################################################################
+
+class SummaryCreateView(CreateView):
+    template_name = "board/create_summary.html"
+    queryset = Summary.objects.all()
+    fields = ["name", 'skills', "information", "contacts"]
+    success_url = "/vacancies/"
+    
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = user
+        return super().form_valid(form)
+    
+class SummaryDetailView(CreateView):
+    template_name = "board/mysummary_detail.html"
+
+    def get(self, request, *args, **kwargs):
+        summary = request.user.summary.first()
+        if request.user.is_authenticated and summary:
+            return render(request, self.template_name, {"summary": summary})
+        else:
+            return render(request, "account/auth.html")
+        
+
+class SummaryUpdateView(UpdateView):
+    queryset = Summary.objects.all()
+    fields = ["name", "skills", "information", "contacts"]
+    template_name = "board/mysummary_update.html"
+    success_url = "/mysummary_detail/"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset

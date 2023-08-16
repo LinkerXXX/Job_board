@@ -148,18 +148,6 @@ class Summary(models.Model):
         )
     skills = models.CharField(max_length=50, blank=False, null=False, verbose_name="Навыки")
     information = models.TextField(max_length=1023, verbose_name="Сопутствующая информация")
-    vacancy = models.ForeignKey(
-        Vacancy,
-        related_name="summary",
-        verbose_name="Вакансии",
-        on_delete=models.CASCADE,
-    )
-    application = models.ForeignKey(
-        Application,
-        related_name="summary",
-        verbose_name="Отклики",
-        on_delete=models.CASCADE,
-    )
     contacts = models.CharField(max_length=50, blank=False, null=False, verbose_name="Контакты")
 
     class Meta:

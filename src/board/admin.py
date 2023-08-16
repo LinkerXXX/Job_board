@@ -54,9 +54,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = (
         "user",
-        "vacancy",
         "skills",
         "contacts",
     )
-    list_filter = ("vacancy",)
     ordering = ("user",)
