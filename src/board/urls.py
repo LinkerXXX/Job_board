@@ -17,7 +17,8 @@ from board.views import (
     VacancyCreateView,
     SummaryCreateView,
     SummaryDetailView,
-    SummaryUpdateView
+    SummaryUpdateView,
+    VacancySearchView
 )
 from account.views import CreateUserView
 
@@ -55,4 +56,5 @@ urlpatterns = [
     path("mysummary_creation/", SummaryCreateView.as_view(), name="mysummary_creation"),
     path("mysummary_detail/", SummaryDetailView.as_view(), name="mysummary_detail"),
     path("mysummary_update/<int:pk>/", SummaryUpdateView.as_view(), name="mysummary_update"),
+    path("search/", VacancySearchView.as_view(), name="vacancy_search"),
 ]

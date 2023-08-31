@@ -8,12 +8,16 @@ from board.forms import (
     UserAuthForm,
     ApplicationMessageForm,
     CompanyCreateForm,
+    SearchForm,
 )
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.db.models import Q
+
+
 
 # https://docs.djangoproject.com/en/4.2/ref/forms/api/#initial-form-values
 
@@ -47,7 +51,8 @@ class IndexView(View):
     def get_context_data(self, *args, **kwargs):
         all_company = Company.objects.all()
         all_specialization = Specialization.objects.all()
-        context = {"companies": all_company, "specializations": all_specialization}
+        all_vacancy = Vacancy.objects.all()
+        context = {"companies": all_company, "specializations": all_specialization, "vacancies": all_vacancy}
         return context
 
 
@@ -108,6 +113,8 @@ class CompanyDetailView(View):
         company = request.user.companies.first()
         if request.user.is_authenticated and company:
             return render(request, self.template_name, {"company": company})
+        elif request.user.is_authenticated and not company:
+            return render(request, "board/create_company.html")
         else:
             return render(request, "account/auth.html")
 
@@ -182,6 +189,8 @@ class SummaryDetailView(CreateView):
         summary = request.user.summary.first()
         if request.user.is_authenticated and summary:
             return render(request, self.template_name, {"summary": summary})
+        elif request.user.is_authenticated and not summary:
+            return render(request, "board/create_summary.html")
         else:
             return render(request, "account/auth.html")
         
@@ -196,3 +205,18 @@ class SummaryUpdateView(UpdateView):
         queryset = super().get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
+    
+
+#########################################################
+
+class VacancySearchView(ListView):
+    model = Vacancy
+    template_name = 'board/index.html'
+    def get_queryset(self): 
+        query = self.request.GET.get('q')
+        object_list = Vacancy.objects.filter(
+            Q(name__icontains=query)
+        )
+        return object_list
+    
+    
