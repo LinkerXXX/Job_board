@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+
 class Specialization(models.Model):
     name = models.CharField(
         max_length=50, blank=False, null=False, verbose_name="Название специализации"
@@ -129,6 +130,29 @@ class Application(models.Model):
     class Meta:
         verbose_name = "Отклик"
         verbose_name_plural = "Отклики"
+
+    def __str__(self):
+        return self.name
+
+
+class Summary(models.Model):
+    name = models.CharField(
+        max_length=50, blank=False, null=False, verbose_name="Имя резюме"
+    )
+    user = models.ForeignKey(User,
+        null=False,
+        blank=False,
+        related_name="summary",
+        verbose_name="Соискатель",
+        on_delete=models.CASCADE,
+        )
+    skills = models.CharField(max_length=50, blank=False, null=False, verbose_name="Навыки")
+    information = models.TextField(max_length=1023, verbose_name="Сопутствующая информация")
+    contacts = models.CharField(max_length=50, blank=False, null=False, verbose_name="Контакты")
+
+    class Meta:
+        verbose_name = "Резюме"
+        verbose_name_plural = "Резюме"
 
     def __str__(self):
         return self.name

@@ -1,3 +1,6 @@
+{% extends 'common.html' %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="ru">
   {% if user.is_authenticated %}
@@ -14,9 +17,7 @@
 </head>
 
 <body>
-  <header class="container mt-3">
-    {% include 'includes/header.html' %}
-  </header>
+  
 
   <main class="container mt-3 pb-5">
     <div class="row mt-5">
@@ -29,6 +30,7 @@
             <a class="nav-link active" href="{%url 'mycompany'%}">1. Информация о компании</a>
             <a class="nav-link" href="{%url 'mycompany_vacancies'%}">2. Вакансии</a>
             <a class="nav-link" href="{%url 'mycompany_update' company.id%}">Редактировать компанию</a>
+            <a class="nav-link" href="{%url 'myvacancy_creation'%}">Создать вакансию </a>
           </div>
         </aside>
       </div>
@@ -55,3 +57,4 @@
 </body>
 {% endif %}
 </html>
+{% endblock %}

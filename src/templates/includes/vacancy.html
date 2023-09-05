@@ -8,6 +8,9 @@
               <p>От {{vacancy.salary_min}} до {{vacancy.salary_max}}.</p>
         {%endif%}
         <p class="text-muted pt-1">{{vacancy.created_at}}</p>
+        {% if request.path == '/mycompany/vacancies/' %}
+          <a href="{% url 'myvacancy_update' vacancy.pk %}" class="btn btn-primary">Редактировать</a>
+        {% endif %}
       </div>
       <div class="col-12 col-md-4 col-lg-3 d-flex align-items-end">
         <img src="{{vacancy.company.logo.url}}" width="130" height="80" alt="">

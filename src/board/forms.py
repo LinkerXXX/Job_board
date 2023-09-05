@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from board.models import User, Application, Company
 from django.forms import ModelForm
-
+from django import forms
 
 class UserCreateForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -25,3 +25,6 @@ class CompanyCreateForm(ModelForm):
     class Meta:
         model = Company
         fields = ["name", "city", "logo", "description", "employee_count"]
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
